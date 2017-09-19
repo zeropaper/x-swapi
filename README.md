@@ -26,82 +26,156 @@ Create an `index.html` file with:
 - Add the following content to your `index.js` file:
   ````js
   var mainElement = document.querySelector('main');
-  
+  //
   function loadPeople(done) {
-    fetch('https://swapi.co/api/' + resourceName + '/')
-      .then(function(response) {
-        return response.json();
-      })
-      .then(/* fill here */)
-      .catch(function(err) {
-        console.warn(err.stack);
-      });
+    /*
+      fill here
+      ---------
+      - make a request to: 'https://swapi.co/api/people/'
+      - call the function "done" and pass it the result of the request
+    */
   }
-  
+  //
   function renderPeople(people) {
-    people.results.forEach(function(person) {
-      var sectionElement = document.createElement('section');
-      sectionElement.classList.add('person');
-
-      var genderSymbol;
-      switch (person.gender) {
-        case 'male':
-          genderSymbol = '♂';
-          break;
-        case 'female':
-          genderSymbol = '♀';
-          break;
-        default:
-          genderSymbol = '?';
-      }
-
-      sectionElement.innerHTML = `
-      <header>
-        <h1>
-          ${person.name}
-          <span class="gender" title="Gender: ${person.gender}">${genderSymbol}</span>
-        </h1>
-      </header>
-      <div>
-        <ul>
-          <li>
-            <span class="label">Birth Year:</span>
-            <span class="value">${person.birth_year}</span>
-          </li>
-          <li>
-            <span class="label">Eye Color:</span>
-            <span class="value">${person.eye_color}</span>
-          </li>
-          <li>
-            <span class="label">Skin Color:</span>
-            <span class="value">${person.skin_color}</span>
-          </li>
-          <li>
-            <span class="label">Hair Color:</span>
-            <span class="value">${person.hair_color}</span>
-          </li>
-          <li>
-            <span class="label">Height:</span>
-            <span class="value">${(person.height / 100).toFixed(2)}m</span>
-          </li>
-          <li>
-            <span class="label">Mass:</span>
-            <span class="value">${person.mass}kg</span>
-          </li>
-        </ul>
-      </div>
-      `;
-
-      mainElement.appendChild(sectionElement);
-    });
+    /*
+      fill here
+      ---------
+      For each given people (use a loop or Array.forEach())
+      - create a section element (with the document.createElement())
+      - fill the innerHTML (maybe have a look at template literals) of the section with:
+        - A header tag which has
+          - A h1 tag containing the name of the person
+        - A div tag which has a list of the following information:
+          - Birth Year
+          - Eye Color
+          - Skin Color
+          - Hair Color
+          - Height
+          - Mass
+        - Add the section element to the main element of the index.html
+    */
   }
-
+  // call the loadPeople with the renderPeople function as parameter
   loadPeople(renderPeople);
   ````
 
 
 ### CSS
 
+- Download the `background.gif` file and save it at the root of your project.
+- Add the following code in a `style.css` (don't forget to add the `link` tag):
+  ````css
+  *,
+  *:before,
+  *:after {
+    box-sizing:/* fill here */;
+  }
+
+  html {
+    height:/* fill here */;
+  }
+
+  body {
+    font-family:/* fill here */;
+    line-height:/* fill here */;
+    color:/* fill here */;
+    background-color:/* fill here */;
+    display:/* fill here */;
+    flex-direction:/* fill here */;
+    margin:/* fill here */;
+    height:/* fill here */;
+    background-image:/* fill here */;
+    background-attachment:/* fill here */;
+  }
+
+  a,
+  a:link,
+  a:hover,
+  a:visited {
+    color:/* fill here */;
+    text-decoration:/* fill here */;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin:/* fill here */;
+    font-weight:/* fill here */;
+  }
+
+  header,
+  footer {
+    color:/* fill here */;
+    background-color:/* fill here */;
+  }
+
+  body>header,
+  body>footer {
+    padding-left:/* fill here */;
+    padding-right:/* fill here */;
+  }
+
+  body>header,
+  body>footer {
+    padding-top:/* fill here */;
+    padding-bottom:/* fill here */;
+  }
+
+  body>header {
+    border-bottom:/* fill here */;
+  }
+
+  main {
+    flex-grow:/* fill here */;
+    overflow:/* fill here */;
+    display:/* fill here */;
+    flex-wrap:/* fill here */;
+  }
+
+  body>footer {
+    border-top:/* fill here */;
+  }
+
+  .person {
+    width:/* fill here */;
+    margin:/* fill here */;
+    background-color:/* fill here */;
+    border:/* fill here */;
+    border-radius:/* fill here */;
+  }
+
+  .person>header,
+  .person>div {
+    padding:/* fill here */;
+  }
+
+  .person>header {
+    border-bottom:/* fill here */;
+  }
+
+  .person ul {
+    padding:/* fill here */;
+  }
+
+  .person li {
+    display:/* fill here */;
+    padding:/* fill here */;
+  }
+
+  .person .label {
+    flex-grow:/* fill here */;
+    width:/* fill here */;
+  }
+
+  .person .gender {
+    color:/* fill here */;
+  }
+
+  .person .value {
+    color:/* fill here */;
+  }
+
+  ````
 
 
 ## Credits
