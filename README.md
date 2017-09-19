@@ -31,7 +31,7 @@ Create an `index.html` file with:
     /*
       fill here
       ---------
-      - make a request to: 'https://swapi.co/api/people/'
+      - make a GET request to: 'https://swapi.co/api/people/'
       - call the function "done" and pass it the result of the request
     */
   }
