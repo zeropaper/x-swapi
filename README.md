@@ -275,7 +275,55 @@ loadPeople(renderPeople);
 
 ### More CSS
 
+Add the following code to your `style.css` and complete it where necessary.
 
+````css
+/* -------------------------------- */
+
+.modal,
+.modal>.underlay,
+.modal>.body {
+  position: absolute;
+}
+
+.modal,
+.modal>.underlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal {
+  height: 0;
+  z-index: 10;
+  overflow: hidden;
+  transition: height 300ms ease;
+}
+
+.modal.open {
+  height: 100%;
+}
+
+.modal>.underlay {
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+
+.modal>.body {
+  /* fill here */
+}
+
+.modal .controls {
+  /* fill here */
+}
+
+.modal .content {
+  /* fill here */
+}
+
+````
 
 ## Credits
 
