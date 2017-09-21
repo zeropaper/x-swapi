@@ -331,6 +331,9 @@ Add the following code to your `style.css` and complete it where necessary.
 
 ````
 
+![star wars browser 1](https://user-images.githubusercontent.com/65971/30689939-e06356de-9ec2-11e7-82d1-760e728b2084.png)
+
+
 ## Credits
 
 - Star Wars API: https://swapi.co
