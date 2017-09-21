@@ -200,11 +200,14 @@ In your `index.js`:
     - appends the `contentElement` to the modal child element with class `content`
     - adds the class `open`
   - `hideModal` which removes the the class `open` from the 
-
+- In the `renderPeople` function:
+  - Add a `button` tag above the list
+  - Add an event listener (either by using `buttonElement.onclick = function(){/*  */}` or with `buttonElement.addEventListener('click', function() {/*  */})`)
 
 <details>
   <summary>Scaffolding</summary>
 
+Don't copy paste without thinking about what this code is meant for. ;)
 
 ````js
 function createModal() {
@@ -220,7 +223,7 @@ function hideModal() {
   // ...
 }
 
-
+// you can copy that safely, just pay attention to where it has to be paste
 var modalElement = createModal();
 var modalContentElement = modalElement.querySelector('.content');
 var modalCloseButton = modalElement.querySelector('.controls button');
