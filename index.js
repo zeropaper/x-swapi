@@ -4,20 +4,18 @@ function createModal() {
   var element = document.createElement('div');
   element.classList.add('modal');
   element.innerHTML = `<div class="body">
-    <div class="controls">
-      <button>close</button>
-    </div>
-    <div class="content"></div>
+  <div class="controls">
+    <button>close</button>
   </div>
-  <div class="underlay"></div>`;
+  <div class="content"></div>
+</div>
+<div class="underlay"></div>`;
   return element;
 }
-
 
 function showModal(contentElement) {
   modalContentElement.innerHTML = '';
   modalContentElement.appendChild(contentElement);
-
   modalElement.classList.add('open');
 }
 
@@ -25,25 +23,22 @@ function hideModal() {
   modalElement.classList.remove('open');
 }
 
-
+// you can copy that safely, just pay attention to where it has to be paste
 var modalElement = createModal();
 var modalContentElement = modalElement.querySelector('.content');
 var modalCloseButton = modalElement.querySelector('.controls button');
 modalCloseButton.addEventListener('click', hideModal);
 document.body.appendChild(modalElement);
 
-
-
-
-function loadData(wanted, done) {
+function loadData(url, done) {
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
-    done(JSON.parse(xhr.responseText));
+    var response = JSON.parse(xhr.responseText);
+    done(response);
   };
-  xhr.open('get', wanted);
+  xhr.open('get', url);
   xhr.send();
 }
-
 
 function loadPeople(done) {
   loadData('https://swapi.co/api/people', done);
@@ -52,7 +47,6 @@ function loadPeople(done) {
 function loadPlanet(url, done) {
   loadData(url, done);
 }
-
 
 
 
@@ -81,7 +75,8 @@ function renderPeople(people) {
       </h1>
     </header>
     <div>
-      <button>Homeworld Details</button>
+
+      <button>GIMME THE HOMEWORLD DIGGA</button>
 
       <ul>
         <li>
@@ -148,6 +143,8 @@ function renderPlanet(planet) {
         <span class="label">Orbital Period:</span>
         <span class="value">${planet.orbital_period}</span>
       </li>
+    </ul>
+    <ul>
       <li>
         <span class="label">Population:</span>
         <span class="value">${planet.population}</span>
