@@ -199,7 +199,10 @@ In your `index.js`:
     - clears the child element with class `content`
     - appends the `contentElement` to the modal child element with class `content`
     - adds the class `open`
-  - `hideModal` which removes the the class `open` from the 
+  - `hideModal` which removes the the class `open` from the
+  - `loadData` with arguments `url` and `done` (basically, move the content of your `loadPeople` inside it) and replace the content of your `loadPeople` function with `loadData('https://swapi.co/api/people/', done);`
+  - `loadPlanet` with arguments `url` and `done`
+- Change the `loadData` function so that you can pass a `wanted` argument (before the `done` argument, in the end it should look like `function loadData(wanted, done)`).
 - In the `renderPeople` function:
   - Add a `button` tag above the list
   - Add an event listener (either by using `buttonElement.onclick = function(){/*  */}` or with `buttonElement.addEventListener('click', function() {/*  */})`)
