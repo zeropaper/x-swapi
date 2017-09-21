@@ -178,6 +178,93 @@ Create an `index.html` file with:
   ````
 
 
+
+### More Javascript
+
+In your `index.js`:
+- create the following functions:
+  - `createModal` which returns an element which has a class `modal` and has the following HTML content:
+    ````html
+    <div class="body">
+      <div class="controls">
+        <button>close</button>
+      </div>
+      <div class="content"></div>
+    </div>
+    <div class="underlay"></div>
+    ````
+  - `showModal` with 1 argument: `contentElement` and which
+    - clears the child element with class `content`
+    - appends the `contentElement` to the modal child element with class `content`
+    - adds the class `open`
+  - `hideModal` which removes the the class `open` from the 
+
+
+<details>
+  <summary>Scaffolding</summary>
+
+
+````js
+function createModal() {
+  // ...
+  return element;
+}
+
+function showModal(contentElement) {
+  // ...
+}
+
+function hideModal() {
+  // ...
+}
+
+
+var modalElement = createModal();
+var modalContentElement = modalElement.querySelector('.content');
+var modalCloseButton = modalElement.querySelector('.controls button');
+modalCloseButton.addEventListener('click', hideModal);
+document.body.appendChild(modalElement);
+
+
+var mainElement = //...
+
+
+function loadData(wanted, done) {
+  // ...
+}
+
+
+function loadPeople(done) {
+  loadData('https://swapi.co/api/people', done);
+}
+
+function loadPlanet(url, done) {
+  loadData(url, done);
+}
+
+
+
+function renderPeople(people) {
+  // ...
+}
+
+function renderPlanet(planet) {
+  // ...
+}
+
+
+loadPeople(renderPeople);
+
+````
+
+
+</details>
+
+
+### More CSS
+
+
+
 ## Credits
 
 - Star Wars API: https://swapi.co
