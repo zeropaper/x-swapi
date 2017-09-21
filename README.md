@@ -248,6 +248,16 @@ function loadPlanet(url, done) {
 
 function renderPeople(people) {
   // ...
+  
+  
+    sectionElement
+      .querySelector('button')
+      .addEventListener('click', function() {
+        loadPlanet(person.homeworld, renderPlanet);
+      });
+
+    mainElement.appendChild(sectionElement);
+  });
 }
 
 function renderPlanet(planet) {
