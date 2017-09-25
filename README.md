@@ -208,11 +208,11 @@ In order to load (and display) the next 10 people, you will need to make an othe
 - In your `renderPeople` function add:
   - Something to clear the content of `mainElement`
   - Create a `nav` element (using document.createElement())
-  - Create a `button` with:
+  - If the "previous" property of the people object has a value, create a `button` with:
     - Text "Previous"
     - Class name: `previous`
     - An event listener which will call the function `loadData` with the "people.previous" and `renderPeople`
-  - Create a `button` with:
+  - If the "next" property of the people object has a value, create a `button` with:
     - Text "Next"
     - Class name: `next`
     - An event listener which will call the function `loadData` with the "people.next" and `renderPeople`
