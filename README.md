@@ -52,6 +52,8 @@ Create an `index.html` file with:
           - Hair Color
           - Height
           - Mass
+          The list items have 2 children span
+          (one with the class "label" and the other with the class "value")
         - Add the section element to the main element of the index.html
     */
   }
