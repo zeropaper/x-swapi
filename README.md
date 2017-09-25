@@ -181,154 +181,41 @@ Create an `index.html` file with:
 ![result](https://user-images.githubusercontent.com/65971/30633894-a364e854-9ded-11e7-8739-6bc6d02a9c7f.png)
 
 
-### More Javascript
+### Pager
 
-In your `index.js`:
-- create the following functions:
-  - `createModal` which returns an element which has a class `modal` and has the following HTML content:
-    ````html
-    <div class="body">
-      <div class="controls">
-        <button>close</button>
-      </div>
-      <div class="content"></div>
-    </div>
-    <div class="underlay"></div>
-    ````
-  - `showModal` with 1 argument: `contentElement` and which
-    - clears the child element with class `content`
-    - appends the `contentElement` to the modal child element with class `content`
-    - adds the class `open`
-  - `hideModal` which removes the the class `open` from the 
-- In the `renderPeople` function:
-  - Add a `button` tag above the list
-  - Add an event listener (either by using `buttonElement.onclick = function(){/*  */}` or with `buttonElement.addEventListener('click', function() {/*  */})`)
-
-<details>
-  <summary>Scaffolding</summary>
-
-Don't copy paste without thinking about what this code is meant for. ;)
-
+As you have seen, the "people" object that you recieve from your AJAX call is looking a bit like:
 ````js
-function createModal() {
-  // ...
-  return element;
+{
+  results: [
+    {name: /* ... */},
+    {name: /* ... */},
+    {name: /* ... */},
+    /* ... */
+  ],
+  count: 87,
+  next: 'https://swapi.co/api/people/?page=2',
+  previous: null
 }
-
-function showModal(contentElement) {
-  // ...
-}
-
-function hideModal() {
-  // ...
-}
-
-// you can copy that safely, just pay attention to where it has to be paste
-var modalElement = createModal();
-var modalContentElement = modalElement.querySelector('.content');
-var modalCloseButton = modalElement.querySelector('.controls button');
-modalCloseButton.addEventListener('click', hideModal);
-document.body.appendChild(modalElement);
-
-
-var mainElement = //...
-
-
-function loadData(wanted, done) {
-  // ...
-}
-
-
-function loadPeople(done) {
-  loadData('https://swapi.co/api/people', done);
-}
-
-function loadPlanet(url, done) {
-  loadData(url, done);
-}
-
-
-
-function renderPeople(people) {
-  // ...
-  
-  
-    sectionElement
-      .querySelector('button')
-      .addEventListener('click', function() {
-        loadPlanet(person.homeworld, renderPlanet);
-      });
-
-    mainElement.appendChild(sectionElement);
-  });
-}
-
-function renderPlanet(planet) {
-  // ...
-}
-
-
-loadPeople(renderPeople);
-
 ````
 
+In the "results" array they are only 10 records, but the total amount of people is 87.
+So basically, it does not give you the complete list of people but only the first 10.
+In order to load (and display) the next 10 people, you will need to make an other request to the "people.next" URL.
 
-</details>
+- Create a function called `loadData` which takes 2 arguments (`url` and `done`)
+- In your `renderPeople` function add:
+  - Something to clear the content of `mainElement`
+  - Create a `nav` element (using document.createElement())
+  - Create a `button` with:
+    - Text "Previous"
+    - Class name: `previous`
+    - An event listener which will call the function `loadData` with the "people.previous" and `renderPeople`
+  - Create a `button` with:
+    - Text "Next"
+    - Class name: `next`
+    - An event listener which will call the function `loadData` with the "people.next" and `renderPeople`
+  - Add the 2 buttons to the `nav` element you created
+  - Add the `nav` element to the `mainElement`
+  - Create a `div` element (with a class `cards`) and add it to `mainElement`
+  - Change your JS code so that the `section` elements of your loop are append to the `div` element you just created
 
-
-### More CSS
-
-Add the following code to your `style.css` and complete it where necessary.
-
-````css
-/* -------------------------------- */
-
-.modal,
-.modal>.underlay,
-.modal>.body {
-  position: absolute;
-}
-
-.modal,
-.modal>.underlay {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.modal {
-  height: 0;
-  z-index: 10;
-  overflow: hidden;
-  transition: height 300ms ease;
-}
-
-.modal.open {
-  height: 100%;
-}
-
-.modal>.underlay {
-  z-index: 10;
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-
-.modal>.body {
-  /* fill here */
-}
-
-.modal .controls {
-  /* fill here */
-}
-
-.modal .content {
-  /* fill here */
-}
-
-````
-
-## Credits
-
-- Star Wars API: https://swapi.co
-- background.gif: http://www.textures4photoshop.com/tex/bokeh-and-light/animated-golden-glitter-gif-texture-overlay.aspx
