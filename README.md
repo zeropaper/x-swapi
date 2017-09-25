@@ -219,3 +219,5 @@ In order to load (and display) the next 10 people, you will need to make an othe
   - Create a `div` element (with a class `cards`) and add it to `mainElement`
   - Change your JS code so that the `section` elements of your loop are append to the `div` element you just created
 
+In your CSS, make changes so that it looks like the previous layout and
+make styles for the pager buttons (so that they look a bit nicer).
