@@ -50,41 +50,31 @@ function renderMenu(data) {
 loadData('https://swapi.co/api/', renderMenu);
 
 
-function renderPeople(people) {
+function renderGenerics(data, renderFunction, renderItem) {
   mainElement.textContent = '';
 
   var navElement = document.createElement('nav');
 
-  renderPagerButton(people.previous, 'previous', renderPeople, navElement);
-  renderPagerButton(people.next, 'next', renderPeople, navElement);
-  // if (people.previous) {
-  //   var previousButton = document.createElement('button');
-  //   previousButton.textContent = 'Previous';
-  //   previousButton.classList.add('previous');
-  //   previousButton.addEventListener('click', function() {
-  //     loadData(people.previous, renderPeople);
-  //   });
-  //   navElement.appendChild(previousButton);
-  // }
-
-  // if (people.next) {
-  //   var nextButton = document.createElement('button');
-  //   nextButton.textContent = 'Next';
-  //   nextButton.classList.add('next');
-  //   nextButton.addEventListener('click', function() {
-  //     loadData(people.next, renderPeople);
-  //   });
-  //   navElement.appendChild(nextButton);
-  // }
+  renderPagerButton(data.previous, 'previous', renderFunction, navElement);
+  renderPagerButton(data.next, 'next', renderFunction, navElement);
 
   var cardsElement = document.createElement('div');
   cardsElement.classList.add('cards');
+  data.results.forEach(function(object) {
+    var sectionElement = document.createElement('section');
+
+    sectionElement.innerHTML = renderItem(object);
+
+    cardsElement.appendChild(sectionElement);
+  });
+
   mainElement.appendChild(cardsElement);
   mainElement.appendChild(navElement);
+}
 
-  people.results.forEach(function(person) {
-    var sectionElement = document.createElement('section');
-    sectionElement.classList.add('person');
+
+function renderPeople(people) {
+  renderGenerics(people, renderPeople, function(person) {
 
     var genderSymbol;
     switch (person.gender) {
@@ -98,7 +88,7 @@ function renderPeople(people) {
         genderSymbol = '?';
     }
 
-    sectionElement.innerHTML = `
+    return `
     <header>
       <h1>
         ${person.name}
@@ -134,25 +124,14 @@ function renderPeople(people) {
       </ul>
     </div>
     `;
-
-    cardsElement.appendChild(sectionElement);
   });
 }
 renderers.people = renderPeople;
 
 
 function renderPlanets(planets) {
-  mainElement.textContent = '';
-  var navElement = document.createElement('nav');
-  renderPagerButton(planets.previous, 'previous', renderPlanets, navElement);
-  renderPagerButton(planets.next, 'next', renderPlanets, navElement);
-
-  var cardsElement = document.createElement('div');
-  cardsElement.classList.add('cards');
-  planets.results.forEach(function(planet) {
-    console.log(planet);
-    var sectionElement = document.createElement('section');
-    sectionElement.innerHTML = `<header>
+  renderGenerics(planets, renderPlanets, function(planet) {
+    return `<header>
       <h1>${planet.name}</h1>
     </header>
     <div>
@@ -191,11 +170,194 @@ function renderPlanets(planets) {
         </li>
       </ul>
     </div>`;
-    cardsElement.appendChild(sectionElement);
   });
-  mainElement.appendChild(cardsElement);
-  mainElement.appendChild(navElement);
 }
 renderers.planets = renderPlanets;
+
+
+function renderSpecies(species) {
+  renderGenerics(species, renderSpecies, function(object) {
+    return `<header>
+      <h1>${object.name}</h1>
+    </header>
+    <div>
+      <ul>
+        <li>
+          <span class="label">Average Height:</span>
+          <span class="value">${object.average_height}</span>
+        </li>
+        <li>
+          <span class="label">Average Lifespan:</span>
+          <span class="value">${object.average_lifespan}</span>
+        </li>
+        <li>
+          <span class="label">Classification:</span>
+          <span class="value">${object.classification}</span>
+        </li>
+        <li>
+          <span class="label">Designation:</span>
+          <span class="value">${object.designation}</span>
+        </li>
+        <li>
+          <span class="label">Eye Colors:</span>
+          <span class="value">${object.eye_colors}</span>
+        </li>
+        <li>
+          <span class="label">Language:</span>
+          <span class="value">${object.language}</span>
+        </li>
+        <li>
+          <span class="label">Skin Colors:</span>
+          <span class="value">${object.skin_colors}</span>
+        </li>
+      </ul>
+    </div>`;
+  });
+}
+renderers.species = renderSpecies;
+
+
+function renderVehicles(vehicles) {
+  renderGenerics(vehicles, renderVehicles, function(object) {
+    return `<header>
+      <h1>${object.name}</h1>
+    </header>
+    <div>
+      <ul>
+        <li>
+          <span class="label">Cargo Capacity:</span>
+          <span class="value">${object.cargo_capacity}</span>
+        </li>
+        <li>
+          <span class="label">Consumables:</span>
+          <span class="value">${object.consumables}</span>
+        </li>
+        <li>
+          <span class="label">Cost in Credits:</span>
+          <span class="value">${object.cost_in_credits}</span>
+        </li>
+        <li>
+          <span class="label">Crew:</span>
+          <span class="value">${object.crew}</span>
+        </li>
+        <li>
+          <span class="label">Length:</span>
+          <span class="value">${object.length}</span>
+        </li>
+        <li>
+          <span class="label">Manufacturer:</span>
+          <span class="value">${object.manufacturer}</span>
+        </li>
+        <li>
+          <span class="label">Max Atmosphere Speed:</span>
+          <span class="value">${object.max_atmosphering_speed}</span>
+        </li>
+        <li>
+          <span class="label">Model:</span>
+          <span class="value">${object.model}</span>
+        </li>
+        <li>
+          <span class="label">Passengers:</span>
+          <span class="value">${object.passengers}</span>
+        </li>
+        <li>
+          <span class="label">Vehicle Class:</span>
+          <span class="value">${object.vehicle_class}</span>
+        </li>
+      </ul>
+    </div>`;
+  });
+}
+renderers.vehicles = renderVehicles;
+
+
+function renderStarships(starships) {
+  renderGenerics(starships, renderStarships, function(object) {
+    return `<header>
+      <h1>${object.name}</h1>
+    </header>
+    <div>
+      <ul>
+        <li>
+          <span class="label">MGLT:</span>
+          <span class="value">${object.MGLT}</span>
+        </li>
+        <li>
+          <span class="label">Cargo Capacity:</span>
+          <span class="value">${object.cargo_capacity}</span>
+        </li>
+        <li>
+          <span class="label">Consumables:</span>
+          <span class="value">${object.consumables}</span>
+        </li>
+        <li>
+          <span class="label">Cost in Credits:</span>
+          <span class="value">${object.cost_in_credits}</span>
+        </li>
+        <li>
+          <span class="label">Crew:</span>
+          <span class="value">${object.crew}</span>
+        </li>
+        <li>
+          <span class="label">Hyperdrive Rating:</span>
+          <span class="value">${object.hyperdrive_rating}</span>
+        </li>
+        <li>
+          <span class="label">Length:</span>
+          <span class="value">${object.length}</span>
+        </li>
+        <li>
+          <span class="label">Manufacturer:</span>
+          <span class="value">${object.manufacturer}</span>
+        </li>
+        <li>
+          <span class="label">Max Atmosphere Speed:</span>
+          <span class="value">${object.max_atmosphering_speed}</span>
+        </li>
+        <li>
+          <span class="label">Model:</span>
+          <span class="value">${object.model}</span>
+        </li>
+        <li>
+          <span class="label">Passengers:</span>
+          <span class="value">${object.passengers}</span>
+        </li>
+        <li>
+          <span class="label">Starship Class:</span>
+          <span class="value">${object.starship_class}</span>
+        </li>
+      </ul>
+    </div>`;
+  });
+}
+renderers.starships = renderStarships;
+
+
+function renderFilms(films) {
+  renderGenerics(films, renderFilms, function(object) {
+    return `<header>
+      <h1><small>${object.episode_id}</small> ${object.title}</h1>
+    </header>
+    <div>
+      <ul>
+        <li>
+          <span class="label">Director:</span>
+          <span class="value">${object.director}</span>
+        </li>
+        <li>
+          <span class="label">Producer:</span>
+          <span class="value">${object.producer}</span>
+        </li>
+        <li>
+          <span class="label">Release Date:</span>
+          <span class="value">${object.release_date}</span>
+        </li>
+      </ul>
+    </div>`;
+  });
+}
+renderers.films = renderFilms;
+
+
 
 loadPeople(renderPeople);
