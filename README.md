@@ -223,3 +223,30 @@ In order to load (and display) the next 10 people, you will need to make an othe
 
 In your CSS, make changes so that it looks like the previous layout and
 make styles for the pager buttons (so that they look a bit nicer).
+
+
+### Menu and additional topics
+
+- In the header of your `index.html` file, add a `nav` with a `ul` inside it.
+- Have a look at https://swapi.co/documentation#root
+- In your `index.js`:
+  - At the top of the file, create an empty object called `renderers`
+  - Just after the end of your `renderPeople`, add a property `people` to the `renderers` object which reference the `renderPeople` function.
+  - Create a function called `renderUnimplemented` which will replace the content of the `mainElement` by a message like: "Sorry, this is not implemented yet."
+  - Create a function called `renderMenu` which takes a `data` argument and add links (use `Object.keys(data).forEach(function(key) {/*...*/})` to iterate) in the `ul` of the header.
+    - The text of the link is the property name of the `data` object
+    - When one of those links is clicked
+      - **If** a property on the `renderers` object is found, it calls the `loadData` with the `renderers[topic]`
+      - **Otherwise** it calls the `renderUnimplemented` function (without calling `loadData`)
+  - Make a call to the root endpoint (using `loadData`) and then renders the menu.
+  - Create a function `renderPlanets` (similar to the `renderPeople`) which renders the planets information and add a reference to the `renderPlanets` in the `renderers` object like you did with `renderPeople` (`renderers.planets = renderPlanets;`). You may need to make some changes to your CSS.
+  - Repeat the previous process for:
+    - films
+    - species
+    - starships
+    - vehicles
+
+### BONUS: Refactoring
+
+You probably have a lot of code which looks similar accross your functions.
+Try to clean that up. :)
