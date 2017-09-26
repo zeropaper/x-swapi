@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'distant_galaxyregular';
+    src: url('distgrg_-webfont.woff2') format('woff2'),
+         url('distgrg_-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 *,
 *:before,
 *:after {
@@ -33,7 +42,10 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-weight: 100;
+  font-weight: normal;
+  font-family: distant_galaxyregular;
+  text-shadow: -1px -1px 0 rgba(0, 0, 0,1),
+                1px 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 button {
@@ -52,7 +64,8 @@ footer {
 }
 
 body>header,
-body>footer {
+body>footer,
+main>nav {
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -63,10 +76,37 @@ body>footer {
   padding-bottom: 0.5rem;
 }
 
+body>header,
+body>header ul {
+  display: flex;
+}
+body>header {
+  min-height: 3em;
+}
+body>header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body>header li {
+  padding: 0.2em 0.4em;
+
+}
+body>header a,
+body>header a:link,
+body>header a:active,
+body>header a:hover {
+  color: #000;
+}
+
+
 
 main {
-  flex-grow: 2;
+  flex-grow: 1;
   overflow: auto;
+}
+
+main > .cards {
   display: flex;
   flex-wrap: wrap;
 }
@@ -75,7 +115,7 @@ body>footer {
   border-top: 1px solid #e8e770;
 }
 
-.person {
+.cards>section {
   width: calc(50% - 2rem);
   margin: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
@@ -84,40 +124,17 @@ body>footer {
 }
 
 
-.person>header,
-.person>div,
-.planet>header,
-.planet>div {
+.cards>section>header,
+.cards>section>div {
   padding: 0 1rem;
 }
 
-.person>header,
-.planet>header {
+.cards>section>header {
   border-bottom: 1px solid #e8e770;
 }
-/*
-.person ul {
-  padding: 0;
-}
-
-.person li {
-  display: flex;
-  padding: 0.2rem 0;
-}
-
-.person .label {
-  flex-grow: 0;
-  width: 30%;
-}
-*/
-.person .gender {
+.cards>section .gender {
   color: #1c3952;
 }
-/*
-.person .value {
-  color: #7ba5ca;
-}
-*/
 section ul {
   padding: 0;
 }
@@ -136,57 +153,11 @@ section .value {
   color: #7ba5ca;
 }
 
-/* -------------------------------- */
-
-.modal,
-.modal>.underlay,
-.modal>.body {
-  position: absolute;
+main > nav {
+  text-align: center;
+  padding: 1em 0;
 }
 
-.modal,
-.modal>.underlay {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.modal {
-  height: 0;
-  z-index: 10;
-  overflow: hidden;
-  transition: height 300ms ease;
-}
-
-.modal.open {
-  height: 100%;
-}
-
-.modal>.underlay {
-  z-index: 10;
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-.modal>.body {
-  z-index: 20;
-  top: 3em;
-  right: 3em;
-  bottom: 3em;
-  left: 3em;
-  display: flex;
-  flex-direction: column;
-}
-
-.modal .controls {
-  text-align: right;
-  padding: 0.2em 0.4em;
-}
-
-.modal .content {
-  flex-grow: 1;
-  background-color: #000;
-  box-shadow: 0 4px 8px 0 #000;
-  border-radius: 3px;
-  overflow: auto;
+main > nav > button {
+  margin: 0 1em;
 }
