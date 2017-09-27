@@ -335,6 +335,86 @@ Add the following code to your `style.css` and complete it where necessary.
 
 ![star wars browser 1](https://user-images.githubusercontent.com/65971/30689939-e06356de-9ec2-11e7-82d1-760e728b2084.png)
 
+### Pager
+
+As you have seen, the "people" object that you recieve from your AJAX call is looking a bit like:
+````js
+{
+  results: [
+    {name: /* ... */},
+    {name: /* ... */},
+    {name: /* ... */},
+    /* ... */
+  ],
+  count: 87,
+  next: 'https://swapi.co/api/people/?page=2',
+  previous: null
+}
+````
+
+In the "results" array they are only 10 records, but the total amount of people is 87.
+So basically, it does not give you the complete list of people but only the first 10.
+In order to load (and display) the next 10 people, you will need to make an other request to the "people.next" URL.
+
+- Create a function called `loadData` which takes 2 arguments (`url` and `done`)
+- In your `renderPeople` function add:
+  - Something to clear the content of `mainElement`
+  - Create a `nav` element (using document.createElement())
+  - If the "previous" property of the people object has a value, create a `button` with:
+    - Text "Previous"
+    - Class name: `previous`
+    - An event listener which will call the function `loadData` with the "people.previous" and `renderPeople`
+  - If the "next" property of the people object has a value, create a `button` with:
+    - Text "Next"
+    - Class name: `next`
+    - An event listener which will call the function `loadData` with the "people.next" and `renderPeople`
+  - Add the 2 buttons to the `nav` element you created
+  - Add the `nav` element to the `mainElement`
+  - Create a `div` element (with a class `cards`) and add it to `mainElement`
+  - Change your JS code so that the `section` elements of your loop are append to the `div` element you just created
+
+In your CSS, make changes so that it looks like the previous layout and
+make styles for the pager buttons (so that they look a bit nicer).
+
+
+### Menu and additional topics
+
+- In the header of your `index.html` file, add a `nav` with a `ul` inside it.
+- Have a look at https://swapi.co/documentation#root
+- In your `index.js`:
+  - At the top of the file, create an empty object called `renderers`
+  - Just after the end of your `renderPeople`, add a property `people` to the `renderers` object which reference the `renderPeople` function.
+  - Create a function called `renderUnimplemented` which will replace the content of the `mainElement` by a message like: "Sorry, this is not implemented yet."
+  - Create a function called `renderMenu` which takes a `data` argument and add links (use `Object.keys(data).forEach(function(key) {/*...*/})` to iterate) in the `ul` of the header.
+    - The text of the link is the property name of the `data` object
+    - When one of those links is clicked
+      - **If** a property on the `renderers` object is found, it calls the `loadData` with the `renderers[topic]`
+      - **Otherwise** it calls the `renderUnimplemented` function (without calling `loadData`)
+  - Make a call to the root endpoint (using `loadData`) and then renders the menu.
+  - Create a function `renderPlanets` (similar to the `renderPeople`) which renders the planets information and add a reference to the `renderPlanets` in the `renderers` object like you did with `renderPeople` (`renderers.planets = renderPlanets;`). You may need to make some changes to your CSS.
+  - Repeat the previous process for:
+    - films
+    - species
+    - starships
+    - vehicles
+
+### BONUS: Refactoring
+
+You probably have a lot of code which looks similar accross your functions.
+Try to clean that up. :)
+
+### BONUS 2: Add a loader indicator
+
+Add a visual indication of the loading (between the click on the menu link until the content renders).
+
+### BONUS 3: Use the hashchange event
+
+Using the `hashchange`.
+
+### BONUS 4: Opening crawl
+
+Animate the opening crawl of the films in a star wars fashion.
+
 
 ## Credits
 
