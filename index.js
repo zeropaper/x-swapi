@@ -348,6 +348,72 @@ function renderVehicles(data) {
 renderers.vehicles = renderVehicles;
 
 
+// -------------------------------------
+
+function renderFilms(data) {
+  mainElement.textContent = '';
+  var navElement = document.createElement('nav');
+
+  if (data.previous) {
+    var previousButton = document.createElement('button');
+    previousButton.classList.add('previous');
+    previousButton.textContent = 'previous';
+    previousButton.addEventListener('click', function() {
+      loadData(data.previous, renderPeople);
+    });
+    navElement.appendChild(previousButton);
+  }
+
+  if (data.next) {
+    var nextButton = document.createElement('button');
+    nextButton.classList.add('next');
+    nextButton.textContent = 'next';
+    nextButton.addEventListener('click', function() {
+      loadData(data.next, renderPeople);
+    });
+    navElement.appendChild(nextButton);
+  }
+
+  var cardsElement = document.createElement('div');
+  cardsElement.classList.add('cards');
+
+  mainElement.appendChild(cardsElement);
+  mainElement.appendChild(navElement);
+
+  data.results.forEach(function(object) {
+    var sectionElement = document.createElement('section');
+
+    sectionElement.innerHTML = `<header>
+      <h1><small>${object.episode_id}</small> ${object.title}</h1>
+    </header>
+    <div class="opening-crawl">
+      <div class="text">
+        ${object.opening_crawl.split('\n').join('<br/>')}
+      </div>
+    </div>
+    <div>
+      <ul>
+        <li>
+          <span class="label">Director:</span>
+          <span class="value">${object.director}</span>
+        </li>
+        <li>
+          <span class="label">Producer:</span>
+          <span class="value">${object.producer}</span>
+        </li>
+        <li>
+          <span class="label">Release Date:</span>
+          <span class="value">${object.release_date}</span>
+        </li>
+      </ul>
+    </div>`;
+
+    cardsElement.appendChild(sectionElement);
+  });
+}
+renderers.films = renderFilms;
+
+
 
 /**************************************\
 \**************************************/
