@@ -171,7 +171,7 @@ function renderStarships(data) {
     previousButton.classList.add('previous');
     previousButton.textContent = 'previous';
     previousButton.addEventListener('click', function() {
-      loadData(data.previous, renderPeople);
+      loadData(data.previous, renderStarships);
     });
     navElement.appendChild(previousButton);
   }
@@ -181,7 +181,7 @@ function renderStarships(data) {
     nextButton.classList.add('next');
     nextButton.textContent = 'next';
     nextButton.addEventListener('click', function() {
-      loadData(data.next, renderPeople);
+      loadData(data.next, renderStarships);
     });
     navElement.appendChild(nextButton);
   }
@@ -270,7 +270,7 @@ function renderVehicles(data) {
     previousButton.classList.add('previous');
     previousButton.textContent = 'previous';
     previousButton.addEventListener('click', function() {
-      loadData(data.previous, renderPeople);
+      loadData(data.previous, renderVehicles);
     });
     navElement.appendChild(previousButton);
   }
@@ -280,7 +280,7 @@ function renderVehicles(data) {
     nextButton.classList.add('next');
     nextButton.textContent = 'next';
     nextButton.addEventListener('click', function() {
-      loadData(data.next, renderPeople);
+      loadData(data.next, renderVehicles);
     });
     navElement.appendChild(nextButton);
   }
@@ -359,7 +359,7 @@ function renderFilms(data) {
     previousButton.classList.add('previous');
     previousButton.textContent = 'previous';
     previousButton.addEventListener('click', function() {
-      loadData(data.previous, renderPeople);
+      loadData(data.previous, renderFilms);
     });
     navElement.appendChild(previousButton);
   }
@@ -369,7 +369,7 @@ function renderFilms(data) {
     nextButton.classList.add('next');
     nextButton.textContent = 'next';
     nextButton.addEventListener('click', function() {
-      loadData(data.next, renderPeople);
+      loadData(data.next, renderFilms);
     });
     navElement.appendChild(nextButton);
   }
