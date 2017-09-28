@@ -32,6 +32,13 @@ var modalCloseButton = modalElement.querySelector('.controls button');
 modalCloseButton.addEventListener('click', hideModal);
 document.body.appendChild(modalElement);
 
+
+
+/**************************************\
+\**************************************/
+
+
+
 function loadData(url, done) {
   var xhr = new XMLHttpRequest();
   xhr.onload = function() {
@@ -52,26 +59,30 @@ function loadPlanet(url, done) {
 
 
 
-function renderPeople(people) {
+/**************************************\
+\**************************************/
+
+
+function renderPeople(data) {
   mainElement.textContent = '';
   var navElement = document.createElement('nav');
 
-  if (people.previous) {
+  if (data.previous) {
     var previousButton = document.createElement('button');
     previousButton.classList.add('previous');
     previousButton.textContent = 'previous';
     previousButton.addEventListener('click', function() {
-      loadData(people.previous, renderPeople);
+      loadData(data.previous, renderPeople);
     });
     navElement.appendChild(previousButton);
   }
 
-  if (people.next) {
+  if (data.next) {
     var nextButton = document.createElement('button');
     nextButton.classList.add('next');
     nextButton.textContent = 'next';
     nextButton.addEventListener('click', function() {
-      loadData(people.next, renderPeople);
+      loadData(data.next, renderPeople);
     });
     navElement.appendChild(nextButton);
   }
@@ -82,12 +93,11 @@ function renderPeople(people) {
   mainElement.appendChild(cardsElement);
   mainElement.appendChild(navElement);
 
-  people.results.forEach(function(person) {
+  data.results.forEach(function(object) {
     var sectionElement = document.createElement('section');
-    sectionElement.classList.add('person');
 
     var genderSymbol;
-    switch (person.gender) {
+    switch (object.gender) {
       case 'male':
         genderSymbol = '♂';
         break;
@@ -101,8 +111,8 @@ function renderPeople(people) {
     sectionElement.innerHTML = `
     <header>
       <h1>
-        ${person.name}
-        <span class="gender" title="Gender: ${person.gender}">${genderSymbol}</span>
+        ${object.name}
+        <span class="gender" title="Gender: ${object.gender}">${genderSymbol}</span>
       </h1>
     </header>
     <div>
@@ -112,27 +122,27 @@ function renderPeople(people) {
       <ul>
         <li>
           <span class="label">Birth Year:</span>
-          <span class="value">${person.birth_year}</span>
+          <span class="value">${object.birth_year}</span>
         </li>
         <li>
           <span class="label">Eye Color:</span>
-          <span class="value">${person.eye_color}</span>
+          <span class="value">${object.eye_color}</span>
         </li>
         <li>
           <span class="label">Skin Color:</span>
-          <span class="value">${person.skin_color}</span>
+          <span class="value">${object.skin_color}</span>
         </li>
         <li>
           <span class="label">Hair Color:</span>
-          <span class="value">${person.hair_color}</span>
+          <span class="value">${object.hair_color}</span>
         </li>
         <li>
           <span class="label">Height:</span>
-          <span class="value">${(person.height / 100).toFixed(2)}m</span>
+          <span class="value">${(object.height / 100).toFixed(2)}m</span>
         </li>
         <li>
           <span class="label">Mass:</span>
-          <span class="value">${person.mass}kg</span>
+          <span class="value">${object.mass}kg</span>
         </li>
       </ul>
     </div>
@@ -142,7 +152,7 @@ function renderPeople(people) {
     sectionElement
       .querySelector('button')
       .addEventListener('click', function() {
-        loadPlanet(person.homeworld, renderPlanet);
+        loadPlanet(object.homeworld, renderPlanet);
       });
 
     cardsElement.appendChild(sectionElement);
@@ -150,26 +160,28 @@ function renderPeople(people) {
 }
 renderers.people = renderPeople;
 
-function renderStarships(starships) {
+// -------------------------------------
+
+function renderStarships(data) {
   mainElement.textContent = '';
   var navElement = document.createElement('nav');
 
-  if (starships.previous) {
+  if (data.previous) {
     var previousButton = document.createElement('button');
     previousButton.classList.add('previous');
     previousButton.textContent = 'previous';
     previousButton.addEventListener('click', function() {
-      loadData(starships.previous, renderPeople);
+      loadData(data.previous, renderPeople);
     });
     navElement.appendChild(previousButton);
   }
 
-  if (starships.next) {
+  if (data.next) {
     var nextButton = document.createElement('button');
     nextButton.classList.add('next');
     nextButton.textContent = 'next';
     nextButton.addEventListener('click', function() {
-      loadData(starships.next, renderPeople);
+      loadData(data.next, renderPeople);
     });
     navElement.appendChild(nextButton);
   }
@@ -180,9 +192,8 @@ function renderStarships(starships) {
   mainElement.appendChild(cardsElement);
   mainElement.appendChild(navElement);
 
-  starships.results.forEach(function(object) {
+  data.results.forEach(function(object) {
     var sectionElement = document.createElement('section');
-    sectionElement.classList.add('object');
 
     sectionElement.innerHTML = `
     <header>
@@ -192,6 +203,54 @@ function renderStarships(starships) {
     </header>
     <div>
       <ul>
+        <li>
+          <span class="label">MGLT:</span>
+          <span class="value">${object.MGLT}</span>
+        </li>
+        <li>
+          <span class="label">Cargo Capacity:</span>
+          <span class="value">${object.cargo_capacity}</span>
+        </li>
+        <li>
+          <span class="label">Consumables:</span>
+          <span class="value">${object.consumables}</span>
+        </li>
+        <li>
+          <span class="label">Cost in Credits:</span>
+          <span class="value">${object.cost_in_credits}</span>
+        </li>
+        <li>
+          <span class="label">Crew:</span>
+          <span class="value">${object.crew}</span>
+        </li>
+        <li>
+          <span class="label">Hyperdrive Rating:</span>
+          <span class="value">${object.hyperdrive_rating}</span>
+        </li>
+        <li>
+          <span class="label">Length:</span>
+          <span class="value">${object.length}</span>
+        </li>
+        <li>
+          <span class="label">Manufacturer:</span>
+          <span class="value">${object.manufacturer}</span>
+        </li>
+        <li>
+          <span class="label">Max Atmosphere Speed:</span>
+          <span class="value">${object.max_atmosphering_speed}</span>
+        </li>
+        <li>
+          <span class="label">Model:</span>
+          <span class="value">${object.model}</span>
+        </li>
+        <li>
+          <span class="label">Passengers:</span>
+          <span class="value">${object.passengers}</span>
+        </li>
+        <li>
+          <span class="label">Starship Class:</span>
+          <span class="value">${object.starship_class}</span>
+        </li>
       </ul>
     </div>
     `;
@@ -199,7 +258,99 @@ function renderStarships(starships) {
     cardsElement.appendChild(sectionElement);
   });
 }
-renderers.starships = renderStarships;
+
+// -------------------------------------
+
+function renderVehicles(data) {
+  mainElement.textContent = '';
+  var navElement = document.createElement('nav');
+
+  if (data.previous) {
+    var previousButton = document.createElement('button');
+    previousButton.classList.add('previous');
+    previousButton.textContent = 'previous';
+    previousButton.addEventListener('click', function() {
+      loadData(data.previous, renderPeople);
+    });
+    navElement.appendChild(previousButton);
+  }
+
+  if (data.next) {
+    var nextButton = document.createElement('button');
+    nextButton.classList.add('next');
+    nextButton.textContent = 'next';
+    nextButton.addEventListener('click', function() {
+      loadData(data.next, renderPeople);
+    });
+    navElement.appendChild(nextButton);
+  }
+
+  var cardsElement = document.createElement('div');
+  cardsElement.classList.add('cards');
+
+  mainElement.appendChild(cardsElement);
+  mainElement.appendChild(navElement);
+
+  data.results.forEach(function(object) {
+    var sectionElement = document.createElement('section');
+
+    sectionElement.innerHTML = `<header>
+      <h1>${object.name}</h1>
+    </header>
+    <div>
+      <ul>
+        <li>
+          <span class="label">Cargo Capacity:</span>
+          <span class="value">${object.cargo_capacity}</span>
+        </li>
+        <li>
+          <span class="label">Consumables:</span>
+          <span class="value">${object.consumables}</span>
+        </li>
+        <li>
+          <span class="label">Cost in Credits:</span>
+          <span class="value">${object.cost_in_credits}</span>
+        </li>
+        <li>
+          <span class="label">Crew:</span>
+          <span class="value">${object.crew}</span>
+        </li>
+        <li>
+          <span class="label">Length:</span>
+          <span class="value">${object.length}</span>
+        </li>
+        <li>
+          <span class="label">Manufacturer:</span>
+          <span class="value">${object.manufacturer}</span>
+        </li>
+        <li>
+          <span class="label">Max Atmosphere Speed:</span>
+          <span class="value">${object.max_atmosphering_speed}</span>
+        </li>
+        <li>
+          <span class="label">Model:</span>
+          <span class="value">${object.model}</span>
+        </li>
+        <li>
+          <span class="label">Passengers:</span>
+          <span class="value">${object.passengers}</span>
+        </li>
+        <li>
+          <span class="label">Vehicle Class:</span>
+          <span class="value">${object.vehicle_class}</span>
+        </li>
+      </ul>
+    </div>`;
+
+    cardsElement.appendChild(sectionElement);
+  });
+}
+renderers.vehicles = renderVehicles;
+
+
+
+/**************************************\
+\**************************************/
 
 
 function renderPlanet(planet) {
@@ -250,7 +401,8 @@ function renderPlanet(planet) {
 }
 
 
-loadPeople(renderPeople);
+/**************************************\
+\**************************************/
 
 
 function renderUnimplemented() {
@@ -278,4 +430,9 @@ function renderMenu(data) {
   });
 }
 
+
+
+
+
+loadPeople(renderPeople);
 loadData('https://swapi.co/api/', renderMenu);
