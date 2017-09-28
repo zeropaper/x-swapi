@@ -67,6 +67,9 @@ body>footer {
 main {
   flex-grow: 2;
   overflow: auto;
+}
+
+.cards {
   display: flex;
   flex-wrap: wrap;
 }
@@ -75,7 +78,7 @@ body>footer {
   border-top: 1px solid #e8e770;
 }
 
-.person {
+.cards>section {
   width: calc(50% - 2rem);
   margin: 1rem;
   background-color: rgba(0, 0, 0, 0.7);
@@ -84,37 +87,37 @@ body>footer {
 }
 
 
-.person>header,
-.person>div,
+.cards>section>header,
+.cards>section>div,
 .planet>header,
 .planet>div {
   padding: 0 1rem;
 }
 
-.person>header,
+.cards>section>header,
 .planet>header {
   border-bottom: 1px solid #e8e770;
 }
 /*
-.person ul {
+.cards>section ul {
   padding: 0;
 }
 
-.person li {
+.cards>section li {
   display: flex;
   padding: 0.2rem 0;
 }
 
-.person .label {
+.cards>section .label {
   flex-grow: 0;
   width: 30%;
 }
 */
-.person .gender {
+.cards>section .gender {
   color: #1c3952;
 }
 /*
-.person .value {
+.cards>section .value {
   color: #7ba5ca;
 }
 */

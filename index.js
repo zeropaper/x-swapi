@@ -1,4 +1,6 @@
 var mainElement = document.querySelector('main');
+var renderers = {};
+
 
 function createModal() {
   var element = document.createElement('div');
@@ -51,6 +53,35 @@ function loadPlanet(url, done) {
 
 
 function renderPeople(people) {
+  mainElement.textContent = '';
+  var navElement = document.createElement('nav');
+
+  if (people.previous) {
+    var previousButton = document.createElement('button');
+    previousButton.classList.add('previous');
+    previousButton.textContent = 'previous';
+    previousButton.addEventListener('click', function() {
+      loadData(people.previous, renderPeople);
+    });
+    navElement.appendChild(previousButton);
+  }
+
+  if (people.next) {
+    var nextButton = document.createElement('button');
+    nextButton.classList.add('next');
+    nextButton.textContent = 'next';
+    nextButton.addEventListener('click', function() {
+      loadData(people.next, renderPeople);
+    });
+    navElement.appendChild(nextButton);
+  }
+
+  var cardsElement = document.createElement('div');
+  cardsElement.classList.add('cards');
+
+  mainElement.appendChild(cardsElement);
+  mainElement.appendChild(navElement);
+
   people.results.forEach(function(person) {
     var sectionElement = document.createElement('section');
     sectionElement.classList.add('person');
@@ -114,9 +145,61 @@ function renderPeople(people) {
         loadPlanet(person.homeworld, renderPlanet);
       });
 
-    mainElement.appendChild(sectionElement);
+    cardsElement.appendChild(sectionElement);
   });
 }
+renderers.people = renderPeople;
+
+function renderStarships(starships) {
+  mainElement.textContent = '';
+  var navElement = document.createElement('nav');
+
+  if (starships.previous) {
+    var previousButton = document.createElement('button');
+    previousButton.classList.add('previous');
+    previousButton.textContent = 'previous';
+    previousButton.addEventListener('click', function() {
+      loadData(starships.previous, renderPeople);
+    });
+    navElement.appendChild(previousButton);
+  }
+
+  if (starships.next) {
+    var nextButton = document.createElement('button');
+    nextButton.classList.add('next');
+    nextButton.textContent = 'next';
+    nextButton.addEventListener('click', function() {
+      loadData(starships.next, renderPeople);
+    });
+    navElement.appendChild(nextButton);
+  }
+
+  var cardsElement = document.createElement('div');
+  cardsElement.classList.add('cards');
+
+  mainElement.appendChild(cardsElement);
+  mainElement.appendChild(navElement);
+
+  starships.results.forEach(function(object) {
+    var sectionElement = document.createElement('section');
+    sectionElement.classList.add('object');
+
+    sectionElement.innerHTML = `
+    <header>
+      <h1>
+        ${object.name}
+      </h1>
+    </header>
+    <div>
+      <ul>
+      </ul>
+    </div>
+    `;
+
+    cardsElement.appendChild(sectionElement);
+  });
+}
+renderers.starships = renderStarships;
 
 
 function renderPlanet(planet) {
@@ -168,3 +251,31 @@ function renderPlanet(planet) {
 
 
 loadPeople(renderPeople);
+
+
+function renderUnimplemented() {
+  mainElement.textContent = 'Doh! Not done yet.';
+}
+
+
+function renderMenu(data) {
+  var menuListElement = document.querySelector('body > header ul');
+
+  var keys = Object.keys(data);
+  keys.forEach(function(key) {
+    var liElement = document.createElement('li');
+
+    var aElement = document.createElement('a');
+    aElement.textContent = key;
+    aElement.addEventListener('click', function() {
+      if (!renderers[key]) return renderUnimplemented();
+      loadData(data[key], renderers[key]);
+    });
+
+    liElement.appendChild(aElement);
+
+    menuListElement.appendChild(liElement);
+  });
+}
+
+loadData('https://swapi.co/api/', renderMenu);
