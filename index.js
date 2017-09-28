@@ -162,6 +162,104 @@ renderers.people = renderPeople;
 
 // -------------------------------------
 
+function renderSpecies(data) {
+  mainElement.textContent = '';
+  var navElement = document.createElement('nav');
+
+  if (data.previous) {
+    var previousButton = document.createElement('button');
+    previousButton.classList.add('previous');
+    previousButton.textContent = 'previous';
+    previousButton.addEventListener('click', function() {
+      loadData(data.previous, renderSpecies);
+    });
+    navElement.appendChild(previousButton);
+  }
+
+  if (data.next) {
+    var nextButton = document.createElement('button');
+    nextButton.classList.add('next');
+    nextButton.textContent = 'next';
+    nextButton.addEventListener('click', function() {
+      loadData(data.next, renderSpecies);
+    });
+    navElement.appendChild(nextButton);
+  }
+
+  var cardsElement = document.createElement('div');
+  cardsElement.classList.add('cards');
+
+  mainElement.appendChild(cardsElement);
+  mainElement.appendChild(navElement);
+
+  data.results.forEach(function(object) {
+    var sectionElement = document.createElement('section');
+
+    var genderSymbol;
+    switch (object.gender) {
+      case 'male':
+        genderSymbol = '♂';
+        break;
+      case 'female':
+        genderSymbol = '♀';
+        break;
+      default:
+        genderSymbol = '?';
+    }
+
+    sectionElement.innerHTML = `
+    <header>
+      <h1>
+        ${object.name}
+      </h1>
+    </header>
+    <div>
+
+      <button>GIMME THE HOMEWORLD DIGGA</button>
+
+      <ul>
+        <li>
+          <span class="label">Birth Year:</span>
+          <span class="value">${object.birth_year}</span>
+        </li>
+        <li>
+          <span class="label">Eye Color:</span>
+          <span class="value">${object.eye_color}</span>
+        </li>
+        <li>
+          <span class="label">Skin Color:</span>
+          <span class="value">${object.skin_color}</span>
+        </li>
+        <li>
+          <span class="label">Hair Color:</span>
+          <span class="value">${object.hair_color}</span>
+        </li>
+        <li>
+          <span class="label">Height:</span>
+          <span class="value">${(object.height / 100).toFixed(2)}m</span>
+        </li>
+        <li>
+          <span class="label">Mass:</span>
+          <span class="value">${object.mass}kg</span>
+        </li>
+      </ul>
+    </div>
+    `;
+
+
+    sectionElement
+      .querySelector('button')
+      .addEventListener('click', function() {
+        loadPlanet(object.homeworld, renderPlanet);
+      });
+
+    cardsElement.appendChild(sectionElement);
+  });
+}
+renderers.species = renderSpecies;
+
+// -------------------------------------
+
 function renderStarships(data) {
   mainElement.textContent = '';
   var navElement = document.createElement('nav');
