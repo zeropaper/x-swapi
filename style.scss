@@ -21,12 +21,15 @@ body {
   background-attachment: fixed;
 }
 
-a,
-a:link,
-a:hover,
-a:visited {
-  color: #e8e770;
-  text-decoration: none;
+a {
+  &,
+  &:link,
+  &:active,
+  &:hover,
+  &:visited {
+    color: #e8e770;
+    text-decoration: none;
+  }
 }
 
 h1,
@@ -82,6 +85,7 @@ main {
     border: 1px solid #e8e770;
     border-radius: 3px;
   }
+
   > section {
     > header,
     > div {
@@ -91,88 +95,83 @@ main {
     > header {
       border-bottom: 1px solid #e8e770;
     }
+
+    .gender {
+      color: #1c3952;
+    }
   }
 }
 
 
+section {
+  ul {
+    padding: 0;
+  }
 
-.cards>section .gender {
-  color: #1c3952;
-}
-/*
-.cards>section .value {
-  color: #7ba5ca;
-}
-*/
-section ul {
-  padding: 0;
-}
+  li {
+    display: flex;
+    padding: 0.2rem 0;
+  }
 
-section li {
-  display: flex;
-  padding: 0.2rem 0;
-}
+  .label {
+    flex-grow: 0;
+    width: 30%;
+  }
 
-section .label {
-  flex-grow: 0;
-  width: 30%;
-}
-
-section .value {
-  color: #7ba5ca;
+  .value {
+    color: #7ba5ca;
+  }
 }
 
 /* -------------------------------- */
-
-.modal,
-.modal>.underlay,
-.modal>.body {
-  position: absolute;
-}
-
-.modal,
-.modal>.underlay {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
 .modal {
-  height: 0;
-  z-index: 10;
-  overflow: hidden;
-  transition: height 300ms ease;
-}
+  &,
+  >.underlay,
+  >.body {
+    position: absolute;
+  }
 
-.modal.open {
-  height: 100%;
-}
+  &,
+  .underlay {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
 
-.modal>.underlay {
-  z-index: 10;
-  background-color: rgba(255, 255, 255, 0.7);
-}
+  & {
+    height: 0;
+    z-index: 10;
+    overflow: hidden;
+    transition: height 300ms ease;
+  }
 
-.modal>.body {
-  z-index: 20;
-  top: 3em;
-  right: 3em;
-  bottom: 3em;
-  left: 3em;
-  display: flex;
-  flex-direction: column;
-}
+  &.open {
+    height: 100%;
+  }
 
-.modal .controls {
-  text-align: right;
-  padding: 0.2em 0.4em;
-}
+  .body {
+    z-index: 20;
+    top: 3em;
+    right: 3em;
+    bottom: 3em;
+    left: 3em;
+    display: flex;
+    flex-direction: column;
+  }
 
-.modal .content {
-  flex-grow: 1;
-  background-color: #000;
-  box-shadow: 0 4px 8px 0 #000;
-  border-radius: 3px;
-  overflow: auto;
+  .controls {
+    text-align: right;
+    padding: 0.2em 0.4em;
+  }
+
+  .content {
+    flex-grow: 1;
+    background-color: #000;
+    box-shadow: 0 4px 8px 0 #000;
+    border-radius: 3px;
+    overflow: auto;
+  }
 }
